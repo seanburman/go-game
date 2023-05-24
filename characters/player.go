@@ -21,7 +21,6 @@ func (p *Player) Create(r *graphics.Registry) {
 		Speed:     constants.SPEED,
 		Mover:     p,
 	}
-	// pos.Update = *p.Update()
 	imgPaths := map[string]string{
 		"UP":    "assets/img/sprites/player/up.png",
 		"DOWN":  "assets/img/sprites/player/down.png",
@@ -38,8 +37,8 @@ func (p *Player) Update() error {
 	return nil
 }
 
-func (p *Player) Draw(screen *ebiten.Image) {
-	p.Character.Draw(screen)
+func (p *Player) Draw(screen *ebiten.Image, r *graphics.Registry) {
+	p.Character.Draw(screen, r)
 }
 
 func (p *Player) Position() graphics.Position {
@@ -50,42 +49,18 @@ func (p *Player) Move() {
 	pos := &p.Character.Pos
 	// Left
 	if ok := ebiten.IsKeyPressed(ebiten.KeyA); ok {
-		// Set direction
-		pos.Direction = "LEFT"
-		pos.Vector2 = [2]int{-1, 0}
-		// Update position
-		if pos.X > 0 {
-			pos.X -= p.Character.Pos.Speed
-		}
+		pos.Left()
 	}
 	// Right
 	if ok := ebiten.IsKeyPressed(ebiten.KeyD); ok {
-		// Set direction
-		pos.Direction = "RIGHT"
-		pos.Vector2 = [2]int{1, 0}
-		// Update position
-		if pos.X < constants.SCREEN_WIDTH-float64(pos.Max.X) {
-			pos.X += pos.Speed
-		}
+		pos.Right()
 	}
 	// Up
 	if ok := ebiten.IsKeyPressed(ebiten.KeyW); ok {
-		// Set direction
-		pos.Direction = "UP"
-		pos.Vector2 = [2]int{0, -1}
-		// Update position
-		if pos.Y > 0 {
-			pos.Y -= pos.Speed
-		}
+		pos.Up()
 	}
 	// Down
 	if ok := ebiten.IsKeyPressed(ebiten.KeyS); ok {
-		// Set direction
-		pos.Direction = "DOWN"
-		pos.Vector2 = [2]int{0, 1}
-		// Update position
-		if pos.Y < constants.SCREEN_HEIGHT-float64(pos.Max.Y) {
-			pos.Y += pos.Speed
-		}
+		pos.Down()
 	}
 }

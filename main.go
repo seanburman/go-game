@@ -17,6 +17,7 @@ func init() {
 	r = &graphics.Registry{}
 	r.Register([]graphics.Graphic{
 		new(characters.Player),
+		new(characters.Female),
 	})
 }
 

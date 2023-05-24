@@ -6,7 +6,7 @@ import (
 
 type Graphic interface {
 	Create(gr *Registry)
-	Draw(screen *ebiten.Image)
+	Draw(screen *ebiten.Image, r *Registry)
 	Update() error
 	Position() Position
 }
@@ -34,6 +34,6 @@ func (r *Registry) Update() {
 
 func (r *Registry) Draw(screen *ebiten.Image) {
 	for _, gr := range r.Graphics {
-		gr.Draw(screen)
+		gr.Draw(screen, r)
 	}
 }
